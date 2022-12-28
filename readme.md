@@ -20,3 +20,5 @@ change run cat to run bat
 # RUN
 Double-click the run.bat, then the GUI windows will open automatically.
 Follow the hint from GUI, then it will be fine to convert the coordinat from the input SEGY file.
+
+Enjoy it!

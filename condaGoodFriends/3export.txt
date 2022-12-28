@@ -1,0 +1,1 @@
+conda env export --name segyCoor2coor_Env --file segyCoor2coor_Env.yml

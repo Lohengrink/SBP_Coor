@@ -1,0 +1,1 @@
+conda activate segyCoor2coor_Env

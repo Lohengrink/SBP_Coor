@@ -1,0 +1,1 @@
+conda deactivate segyCoor2coor_Env

@@ -1,0 +1,2 @@
+conda deactivate segyCoor2coor_Env
+conda remove --name segyCoor2coor_Env --all

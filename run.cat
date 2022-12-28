@@ -1,0 +1,3 @@
+call activate segyCoor2coor_Env
+call python .\__source_code__\runIn90_tk_app.py
+pause

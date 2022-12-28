@@ -9,7 +9,7 @@ SEGY_Nav
 Please contact with new jack (k8813940518@gmail.com) to apply the demo data.
 
 # install and env setting
-If you are new here, then you can get more details from those two repo, MCS_Nav and SIL_ll2utm.
+If you are new here, then you can get more details from those two repo, [MCS_Nav](https://github.com/Lohengrink/MCS_Nav) and [SIL_ll2utm](https://github.com/Lohengrink/SIL_ll2utm).
 There are most of the details you need to install and set the Env.
 
 If you are our old friends, then you can follow the similar steps to set up this tool.

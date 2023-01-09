@@ -99,8 +99,8 @@ def segyXY(inSEGY, o_outputNAVfile, s_srs, coord='Source', force_scaling=False, 
     
     else:
         XYscale = scaler
-        print("Jack2")
-        print(XYscale)
+        # print(XYscale)
+        # print("Jack2")
 
     if s_srs == 4326:
         print('source Coor is "4326"')

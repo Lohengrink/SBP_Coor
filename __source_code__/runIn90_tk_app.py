@@ -46,6 +46,21 @@ def submit_run():
 
 
     sp = " "
+    # forcing scalar
+    # command = main + sp + input_path + sp + \
+    #     arg_s_srs + sp + s_srs + sp + \
+    #     arg_t_srs + sp + t_srs + sp + \
+    #     arg_s_coord + sp + s_coord + sp + \
+    #     arg_t_coord + sp + t_coord + sp + \
+    #     arg_s + sp + s + sp + \
+    #     arg_i_interpolate + sp + i_interpolate + sp + \
+    #     arg_output_path + sp + output_path + sp + \
+    #     arg_sc + sp + sc + sp + \
+    #     arg_prefix_col3_nav + sp + prefix_col3_nav + sp + \
+    #     arg_o_outputFolderForNAV + sp + output_path_NAV + sp + \
+    #     arg_fs
+
+    # Instead of forcing scalar, follow from header # 2023.01.09
     command = main + sp + input_path + sp + \
         arg_s_srs + sp + s_srs + sp + \
         arg_t_srs + sp + t_srs + sp + \
@@ -54,16 +69,15 @@ def submit_run():
         arg_s + sp + s + sp + \
         arg_i_interpolate + sp + i_interpolate + sp + \
         arg_output_path + sp + output_path + sp + \
-        arg_sc + sp + sc + sp + \
         arg_prefix_col3_nav + sp + prefix_col3_nav + sp + \
-        arg_o_outputFolderForNAV + sp + output_path_NAV + sp + \
-        arg_fs        
+        arg_o_outputFolderForNAV + sp + output_path_NAV
 
+    # print(command)
     os.system(command)
     window.destroy()
 
 def do_nothing():
-    messagebox.showinfo(title=">////<", message="Yada~ We still work on it. But I just wanna veg out in front of the TV all weekend.xdd")
+    messagebox.showinfo(title=">/////<", message="Yada~ We still work on it. But I just wanna veg out in front of the TV all weekend.xdd")
 
 # define font
 myFont = font.Font(size=14)

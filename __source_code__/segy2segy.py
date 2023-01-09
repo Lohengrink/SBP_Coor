@@ -88,15 +88,22 @@ def segyXY(inSEGY, o_outputNAVfile, s_srs, coord='Source', force_scaling=False, 
     # Retrieve coordinates
     if not force_scaling:  # get scaler from file
         scaler = STH['scalar_to_be_applied_to_all_coordinates']  # this is a vector with ntraces elements
+
+        print('scaler from header:')
+        print(scaler)
         XYscale = convertScaler(scaler, toRead=True)
-        # print("Jack1")
-        # print(XYscale)
+
+        print('and convert ...')
+        print(XYscale)
+        # print("Jack1")    
+    
     else:
         XYscale = scaler
-        # print("Jack2")
         # print(XYscale)
+        # print("Jack2")
 
     if s_srs == 4326:
+        print('source Coor is "4326"')
         # print("y")
         XYarray[:, 0] = STH[Ycoord] * XYscale / 3600
         XYarray[:, 1] = STH[Xcoord] * XYscale / 3600
@@ -105,20 +112,7 @@ def segyXY(inSEGY, o_outputNAVfile, s_srs, coord='Source', force_scaling=False, 
         XYarray[:, 0] = STH[Xcoord] * XYscale
         XYarray[:, 1] = STH[Ycoord] * XYscale
 
-
-    
-    # s = str(inSEGY).split('\\')
-    # segy_file_name = s[-1]
-    # s.pop(-1)
-    # s.pop(-1)
-    # path_two_up = str(s).replace('[','').replace(']','').replace("'","").replace(" ","").replace(",","\\")
-
-
-    # path = path_two_up + '\\' + 'SBP_NAV'
-
-    # file = path + '\\' + 'NAV_' + segy_file_name.replace('.sgy', '.txt')
-
-    # Path(path).mkdir(parents=True, exist_ok=True)
+    # for nav files
     f = open(o_outputNAVfile, "w")
     for i in range(0, len(XYarray), 1):
 
@@ -185,8 +179,13 @@ def segy2segy(inSEGY,
 
     # transform coordinates
     newXYarray = projectPoints(XYarray, s_srs, t_srs, i_interpolate)
+    # print('transform coordinates')
+    # print(newXYarray)
+
     # Apply scaling #check_Chin-Yeh Chen
-    newXYarray = newXYarray / np.column_stack((XYscale, XYscale))
+    # newXYarray = newXYarray / np.column_stack((XYscale, XYscale)) # 0.01(NOR1) or 0.001(LGD)
+    # print('Apply scaling #check_Chin-Yeh Chen')
+    # print(newXYarray)
 
     # load SEGY object (headers only)
     seis = _read_segy(inSEGY, headonly=True)
@@ -305,17 +304,21 @@ def main():
         if args.suffix != '':
             print("Reading SEGY files in {}".format(infile))
             for f in os.listdir(infile):
-                if re.search("\\.se?gy$", f, flags=re.IGNORECASE):
-                    print("Processing file: {}".format(f))
-                    target = os.path.join(infile, f)
-                    segyName, extension = os.path.splitext(f)
-                    outfile = os.path.join(outputFolder, segyName + args.suffix + extension)
-                    outputNAVfile = os.path.join(outputFolderForNAV, "NAV_" + segyName + ".txt") #CY
-                    segy2segy(target, outfile, outputNAVfile, args.s_srs, args.t_srs, args.s_coord, args.t_coord, args.force_scaling,
-                              args.scaler, args.i_interpolate, args.p_prefixCol3Nav, segyName)
+                if not f.endswith(('.seg','.sgy','.segy','.SEG','.SGY','.SEGY')):
+                    print("Please chech the input file extension. (Note: .seg .sgy .segy .SEG .SGY .SEGY are allowed.)")
+                    continue
+                # if re.search("\\.se?g?y$", f, flags=re.IGNORECASE):
+                print("---> init --->")
+                print("Processing file: {}".format(f))
+                target = os.path.join(infile, f)
+                segyName, extension = os.path.splitext(f)
+                outfile = os.path.join(outputFolder, segyName + args.suffix + extension)
+                outputNAVfile = os.path.join(outputFolderForNAV, "NAV_" + segyName + ".txt") #CY
+                segy2segy(target, outfile, outputNAVfile, args.s_srs, args.t_srs, args.s_coord, args.t_coord, args.force_scaling,
+                          args.scaler, args.i_interpolate, args.p_prefixCol3Nav, segyName)
                     
                     
-                    print("Done!")
+                print("Done!")
             print("\nAll SEGY files successfully processed.")
         else:
             print("Error: Please provide a suffix for output files (option -s).")  # files cannot be overwritten
